@@ -10,10 +10,20 @@
     <!-- add entry to enable component scanning -->
 
     <bean id="myFortune" class="com.gavin.springdemo.HappyFortuneService" />
-    <bean id="myCoach" class="com.gavin.springdemo.TrackCoach" >
-        <constructor-arg ref="myFortune"></constructor-arg>
+    <bean id="randomFortune" class="com.gavin.springdemo.RandomFortuneService" />
+    <bean id="myTrackCoach" class="com.gavin.springdemo.TrackCoach" >
+        <constructor-arg ref="randomFortune"></constructor-arg>
     </bean>
 
+    <bean id="myCricketCoach" class="com.gavin.springdemo.CricketCoach" >
+        <property name="fortuneService" ref="randomFortune"/>
+        <property name="email" value="${email}"/>
+    </bean>
+
+    <bean id="myPingPongCoach" class="com.gavin.springdemo.PingPongCoach" scope="prototype" init-method="init" destroy-method="destroy">
+    </bean>
+
+    <context:property-placeholder  location="classpath:service.properties"/>
 </beans>
 
 
